@@ -100,6 +100,17 @@ shadcn/ui on top of Tailwind. No custom design system. Components live in `compo
 - Modals and dialogs: centered overlay, `rounded-3xl`, dark background with backdrop blur.
 - Navbar: top bar with dark background and bottom border.
 
+## Editor Dialog Composition Pattern
+
+Future editor dialogs compose the existing `components/ui/dialog.tsx` primitives at the feature level. No actual editor dialog is mounted in the base chrome.
+
+- Use `Dialog` and `DialogTrigger` with `DialogContent` for modal behavior, focus management, and accessible dismissal.
+- Apply `rounded-3xl border border-surface-border bg-elevated text-copy-primary` to `DialogContent`, using the tokens in `app/globals.css`.
+- Place `DialogTitle` and `DialogDescription` inside `DialogHeader`; use `text-copy-primary` for the title and `text-copy-muted` for the description.
+- Put feature content after the header and action buttons inside `DialogFooter`. Apply `rounded-b-3xl border-surface-border bg-subtle/50` to the footer.
+- Compose footer actions from `Button`, using `DialogClose asChild` for cancel. Actual action labels and submit behavior belong to the future feature spec.
+- Keep generated UI primitives unchanged. The existing dialog overlay provides backdrop blur.
+
 ## Icons
 
 Lucide React. Stroke-based icons only — no filled variants. Icon sizes: `h-4 w-4` for inline, `h-5 w-5` for buttons, `h-8 w-8` for feature icons in empty states.
